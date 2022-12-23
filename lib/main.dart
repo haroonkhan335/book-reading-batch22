@@ -1,6 +1,14 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-void main() {
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final stringifiedData = await rootBundle.loadString("assets/data/data.json");
+
+  final Map<String, dynamic> data = Map<String, dynamic>.from(jsonDecode(stringifiedData));
+
   runApp(const MyApp());
 }
 
