@@ -15,9 +15,17 @@ class Chapter {
 
   factory Chapter.fromJson(Map<String, dynamic> json) {
     return Chapter(
-        chapterDetails: json["chapterDetails"],
-        chapterNo: json["chapterNo"],
-        chapterTitle: json["chapterTitle"],
-        pages: (json["pages"] as List<Map<String, dynamic>>).map((e) => Page.fromJson(e)).toList());
+      chapterDetails: json["chapterDetails"],
+      chapterNo: json["chapterNo"],
+      chapterTitle: json["chapterTitle"],
+      pages: List<Map<String, dynamic>>.from(json["pages"]).map((e) => Page.fromJson(e)).toList(),
+    );
   }
+
+  Map<String, dynamic> toJson() => {
+        "chapterDetails": chapterDetails,
+        "chapterNo": chapterNo,
+        "chapterTitle": chapterTitle,
+        "pages": pages.map((e) => e.toJson()).toList(),
+      };
 }
