@@ -7,11 +7,23 @@ class BookReading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        "/": (context) => const Splash(),
-        "/home": (context) => const Home(),
-      },
-    );
+    return MaterialApp(onGenerateRoute: (settings) {
+      return Router.onGenerateRoute(settings);
+    });
+  }
+}
+
+class Router {
+  static const String home = '/home';
+  static const String splash = '/splash';
+
+  static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case '/':
+        return MaterialPageRoute(builder: (context) => const Splash());
+      case Home.routeName:
+        final args = settings.arguments as HomeArgs;
+        return MaterialPageRoute(builder: (context) => Home(args: args));
+    }
   }
 }
