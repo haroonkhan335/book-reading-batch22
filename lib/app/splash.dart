@@ -28,8 +28,10 @@ class _SplashState extends State<Splash> {
         (data["book"] as Map<String, dynamic>).entries.map((e) => Book.fromJson(e.value)).toList();
 
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.of(context)
-          .pushNamed(router.Router.home, arguments: HomeArgs(books: books, name: "Haroon Khan"));
+      Navigator.of(context).pushNamed(
+        router.Router.home,
+        arguments: HomeArgs(books: books, name: "Haroon Khan"),
+      );
     });
   }
 
