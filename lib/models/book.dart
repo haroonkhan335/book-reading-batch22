@@ -7,6 +7,7 @@ class Book {
   String details;
   String bookCover;
   List<Chapter> chapters;
+  double rating;
 
   Book({
     required this.title,
@@ -15,10 +16,12 @@ class Book {
     required this.details,
     required this.bookCover,
     required this.chapters,
+    required this.rating,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) => Book(
         title: json["title"],
+        rating: json["rating"],
         author: json["author"],
         publishedDate: DateTime.tryParse(json["publishedDate"]) ?? DateTime.now(),
         details: json["details"],
@@ -31,6 +34,7 @@ class Book {
   Map<String, dynamic> toJson() => {
         "title": title,
         "author": author,
+        "rating": rating,
         "publishedDate": publishedDate.toIso8601String(),
         "details": details,
         "bookCover": bookCover,

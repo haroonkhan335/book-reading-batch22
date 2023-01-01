@@ -4,6 +4,7 @@
             "title": "Data Communication And Networking",
             "author": "Bherouz A.Forouzan",
             "publishedDate": "02-06-2007",
+            "rating": 3.7,
             "details": "It tell us about the TCPflP Protocol Suite Local Area Networks Business Data Communications",
             "bookCover": "https://images-platform.99static.com//WE9F54ATXej5u2LWshKJ4wlQ1-U=/192x192:1699x1699/fit-in/500x500/99designs-contests-attachments/118/118518/attachment_118518740",
             "chapters": [
@@ -59,6 +60,7 @@
             "title": "Flutter Complete Refrence",
             "author": "Alberto Miola",
             "publishedDate": "22-07-2018",
+            "rating": 4.5,
             "details": "Flutter Complete Reference is one of the best Flutter books for learning Dart and Flutter.",
             "bookCover": "https://realtoughcandy.com/wp-content/uploads/2021/08/flutter-complete-reference.jpg",
             "chapters": [
@@ -111,6 +113,8 @@
             ]
         },
         "book3": {
+            "rating": 4.9,
+
             "title": "ALL Round View",
             "author": "Imran Khan",
             "publishedDate": "1988",
@@ -151,6 +155,7 @@
             ]
         },
         "book4": {
+            "rating": 4.0,
             "title": "Code Complete",
             "author": "Steve McConnell",
             "publishedDate": "2004",
