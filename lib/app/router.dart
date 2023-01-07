@@ -16,3 +16,18 @@ class Router {
     }
   }
 }
+
+class Message {
+  final String body;
+  final String senderName;
+  final DateTime sentAt;
+  final String senderPhotoUrl;
+  final String? attachment;
+
+  Message(
+      {required this.body,
+      required this.senderName,
+      this.attachment,
+      required this.senderPhotoUrl,
+      required this.sentAt});
+}
