@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:book_reading_batch22/app/router.dart' as router;
+import 'package:book_reading_batch22/app/router.dart';
 import 'package:book_reading_batch22/home/screens/home.dart';
 import 'package:book_reading_batch22/models/book.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class _SplashState extends State<Splash> {
 
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.of(context).pushNamed(
-        router.Router.home,
+        AppRouter.home,
         arguments: HomeArgs(books: books, name: "Haroon Khan"),
       );
     });

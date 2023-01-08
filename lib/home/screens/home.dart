@@ -79,15 +79,16 @@ class _HomeState extends State<Home> {
                                 },
                               ),
                             ),
-                            !isDetailsShowing && indexCoverToHide != -1
-                                ? Positioned(
-                                    top: -10,
-                                    left: 50,
-                                    child: BookCover(
-                                      coverUrl: book.bookCover,
-                                    ),
-                                  )
-                                : const SizedBox(),
+                            if (isDetailsShowing && indexCoverToHide == index)
+                              const SizedBox()
+                            else
+                              Positioned(
+                                top: -10,
+                                left: 50,
+                                child: BookCover(
+                                  coverUrl: book.bookCover,
+                                ),
+                              )
                           ],
                         ),
                       );

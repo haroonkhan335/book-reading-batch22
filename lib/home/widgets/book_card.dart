@@ -1,9 +1,11 @@
+import 'package:book_reading_batch22/app/router.dart';
+import 'package:book_reading_batch22/chapters/book_chapters.dart';
 import 'package:book_reading_batch22/models/book.dart';
 import 'package:book_reading_batch22/utils/media_query.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BookCard extends StatelessWidget {
+class BookCard extends StatefulWidget {
   BookCard({
     super.key,
     required this.book,
@@ -13,7 +15,15 @@ class BookCard extends StatelessWidget {
   final Book book;
   final Function() onDetailsOpened;
 
+  @override
+  State<BookCard> createState() {
+    return _BookCardState();
+  }
+}
+
+class _BookCardState extends State<BookCard> {
   bool isDetailsShowing = false;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -27,17 +37,18 @@ class BookCard extends StatelessWidget {
           children: [
             SizedBox(
               height: screenHeight(context) * 0.13,
+              child: isDetailsShowing ? Text(widget.book.details) : const SizedBox(),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
-              child: Text(book.title,
+              child: Text(widget.book.title,
                   style: GoogleFonts.poppins(
                     fontSize: 21,
                   )),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, bottom: 15),
-              child: Text(book.author,
+              child: Text(widget.book.author,
                   style: const TextStyle(
                     fontSize: 20,
                     color: Colors.grey,
@@ -48,12 +59,14 @@ class BookCard extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      if (isDetailsShowing == true) {
-                        isDetailsShowing = false;
-                      } else {
-                        isDetailsShowing = true;
-                      }
-                      onDetailsOpened();
+                      setState(() {
+                        if (isDetailsShowing == true) {
+                          isDetailsShowing = false;
+                        } else {
+                          isDetailsShowing = true;
+                        }
+                        widget.onDetailsOpened();
+                      });
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 15),
@@ -70,6 +83,10 @@ class BookCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRouter.bookChapters,
+                          arguments: BookChaptersArgs(book: widget.book));
+                    },
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       decoration: const BoxDecoration(
