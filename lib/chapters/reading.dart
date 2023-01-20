@@ -1,13 +1,21 @@
-import 'dart:developer';
-
-import 'package:book_reading_batch22/models/chapter.dart';
+import 'package:book_reading_batch22/models/page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Reading extends StatefulWidget {
-  const Reading({super.key, required this.chapter});
+  const Reading({
+    super.key,
+    required this.pages,
+    required this.title,
+    required this.onPageTurned,
+    this.initialPage = 0,
+  });
 
-  final Chapter chapter;
+  final List<BookPage> pages;
+  final String title;
+  final int initialPage;
+
+  final Function(int) onPageTurned;
 
   @override
   State<Reading> createState() => _ReadingState();
@@ -16,14 +24,25 @@ class Reading extends StatefulWidget {
 class _ReadingState extends State<Reading> {
   int index = 0;
 
-  final PageController _pageController = PageController();
+  late final PageController _pageController = PageController();
   final Curve curve = Curves.bounceOut;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      index = widget.initialPage;
+      widget.onPageTurned(index);
+      _pageController.animateToPage(index,
+          duration: const Duration(milliseconds: 500), curve: curve);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.chapter.chapterTitle),
+        title: Text(widget.title),
       ),
       body: Column(
         children: [
@@ -33,15 +52,15 @@ class _ReadingState extends State<Reading> {
               child: PageView.builder(
                 controller: _pageController,
                 onPageChanged: (index) {
-                  log("PAGE CHANGED: $index");
                   setState(() {
                     this.index = index;
                   });
+                  widget.onPageTurned(index);
                 },
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: widget.chapter.pages.length,
+                itemCount: widget.pages.length,
                 itemBuilder: (context, index) {
-                  final page = widget.chapter.pages[index];
+                  final page = widget.pages[index];
 
                   return Column(
                       children: page.paragraphs
@@ -74,7 +93,7 @@ class _ReadingState extends State<Reading> {
                   ),
                 ),
               ),
-              Text('${index + 1}/${widget.chapter.pages.length}',
+              Text('${index + 1}/${widget.pages.length}',
                   style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500)),
               GestureDetector(
                 onTap: () {

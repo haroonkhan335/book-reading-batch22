@@ -4,7 +4,7 @@ class Chapter {
   int chapterNo;
   String chapterTitle;
   String chapterDetails;
-  List<Page> pages;
+  List<BookPage> pages;
 
   Chapter({
     required this.chapterDetails,
@@ -18,7 +18,8 @@ class Chapter {
       chapterDetails: json["chapterDetails"],
       chapterNo: json["chapterNo"],
       chapterTitle: json["chapterTitle"],
-      pages: List<Map<String, dynamic>>.from(json["pages"]).map((e) => Page.fromJson(e)).toList(),
+      pages:
+          List<Map<String, dynamic>>.from(json["pages"]).map((e) => BookPage.fromJson(e)).toList(),
     );
   }
 

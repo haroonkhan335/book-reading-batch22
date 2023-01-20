@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:book_reading_batch22/chapters/reading.dart';
 import 'package:book_reading_batch22/models/book.dart';
+import 'package:book_reading_batch22/models/chapter.dart';
 import 'package:book_reading_batch22/utils/media_query.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +45,14 @@ class BookChapters extends StatelessWidget {
                           onTap: () {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (BuildContext context) {
-                              return Reading(chapter: chapter);
+                              return Reading(
+                                onPageTurned: (int pageNo) {
+                                  log("PAGE TURNED: $pageNo");
+                                  args.historySaved(chapter, pageNo);
+                                },
+                                pages: chapter.pages,
+                                title: chapter.chapterTitle,
+                              );
                             }));
                           },
                           title: Text(chapter.chapterTitle, style: const TextStyle(fontSize: 20)),
@@ -65,6 +75,7 @@ class BookChapters extends StatelessWidget {
 
 class BookChaptersArgs {
   final Book book;
+  final Function(Chapter chapter, int pageNo) historySaved;
 
-  BookChaptersArgs({required this.book});
+  BookChaptersArgs({required this.book, required this.historySaved});
 }

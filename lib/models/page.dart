@@ -1,14 +1,14 @@
-class Page {
+class BookPage {
   int pageNo;
   List<String> paragraphs;
 
-  Page({
+  BookPage({
     required this.pageNo,
     required this.paragraphs,
   });
 
-  factory Page.fromJson(Map<String, dynamic> json) {
-    return Page(
+  factory BookPage.fromJson(Map<String, dynamic> json) {
+    return BookPage(
       pageNo: json['pageNo'],
       paragraphs: List<String>.from(json["paragraphs"]),
     );
