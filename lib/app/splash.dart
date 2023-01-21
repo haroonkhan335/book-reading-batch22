@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:book_reading_batch22/app/router.dart';
-import 'package:book_reading_batch22/home/screens/home.dart';
 import 'package:book_reading_batch22/models/book.dart';
+import 'package:book_reading_batch22/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -27,11 +26,14 @@ class _SplashState extends State<Splash> {
     final List<Book> books =
         (data["book"] as Map<String, dynamic>).entries.map((e) => Book.fromJson(e.value)).toList();
 
+    final List<Message> messages = (data["messages"] as Map<String, dynamic>)
+        .entries
+        .map((e) => Message.fromJson(e.value))
+        .toList();
+
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.of(context).pushNamed(
-        AppRouter.home,
-        arguments: HomeArgs(books: books, name: "Haroon Khan"),
-      );
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => Messages(messages: messages)));
     });
   }
 
@@ -42,6 +44,24 @@ class _SplashState extends State<Splash> {
         child: Text(
           "Book Reading App",
         ),
+      ),
+    );
+  }
+}
+
+class Messages extends StatelessWidget {
+  const Messages({super.key, required this.messages});
+
+  final List<Message> messages;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Messages")),
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          return SizedBox();
+        },
       ),
     );
   }

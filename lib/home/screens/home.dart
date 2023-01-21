@@ -12,6 +12,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+class NotificationItem {
+  Color color;
+  String title;
+
+  NotificationItem(this.color, this.title);
+}
+
 class Home extends StatefulWidget {
   static const String routeName = "/home";
   Home({super.key, required this.args});

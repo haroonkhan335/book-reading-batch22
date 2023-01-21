@@ -197,5 +197,37 @@
             "firstName": "Haroon",
             "lastName": "Khan"
         }
+    },
+    "messages": {
+        "k1j2kljfs": {
+            "body": "Hello how are you",
+            "sentAt": "2023-01-05",
+            "isSeen": true,
+            "isMine": true
+        },
+        "qwerqwer": {
+            "body": "Hello how are you",
+            "sentAt": "2023-01-05",
+            "isSeen": true,
+            "isMine": true
+        },
+        "qjkrh3kj2h": {
+            "body": "Hello how are you",
+            "sentAt": "2023-01-05",
+            "isSeen": true,
+            "isMine": false
+        },
+        "lkjlk42jkl2": {
+            "body": "Hello how are you",
+            "sentAt": "2023-01-05",
+            "isSeen": true,
+            "isMine": true
+        },
+        "k1j2k1lk2j3lkjg4ljfs": {
+            "body": "Hello how are you",
+            "sentAt": "2023-01-05",
+            "isSeen": true,
+            "isMine": false
+        }
     }
 }
