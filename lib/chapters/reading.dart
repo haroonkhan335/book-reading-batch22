@@ -1,21 +1,12 @@
-import 'package:book_reading_batch22/models/page.dart';
+import 'package:book_reading_batch22/app/controller/service_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class Reading extends StatefulWidget {
   const Reading({
     super.key,
-    required this.pages,
-    required this.title,
-    required this.onPageTurned,
-    this.initialPage = 0,
   });
-
-  final List<BookPage> pages;
-  final String title;
-  final int initialPage;
-
-  final Function(int) onPageTurned;
 
   @override
   State<Reading> createState() => _ReadingState();
@@ -30,8 +21,8 @@ class _ReadingState extends State<Reading> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      index = widget.initialPage;
-      widget.onPageTurned(index);
+      index = context.read<ServiceController>().lastPoint?.pageNo ?? 0;
+
       _pageController.animateToPage(index,
           duration: const Duration(milliseconds: 500), curve: curve);
     });
@@ -42,7 +33,7 @@ class _ReadingState extends State<Reading> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(context.read<ServiceController>().selectedChapter!.chapterTitle),
       ),
       body: Column(
         children: [
@@ -52,15 +43,15 @@ class _ReadingState extends State<Reading> {
               child: PageView.builder(
                 controller: _pageController,
                 onPageChanged: (index) {
-                  setState(() {
-                    this.index = index;
-                  });
-                  widget.onPageTurned(index);
+                  //TODO: Shift to provider
+                  this.index = index;
+
+                  context.read<ServiceController>().saveLastPoint(index);
                 },
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: widget.pages.length,
+                itemCount: context.read<ServiceController>().selectedChapter!.pages.length,
                 itemBuilder: (context, index) {
-                  final page = widget.pages[index];
+                  final page = context.read<ServiceController>().selectedChapter!.pages[index];
 
                   return Column(
                       children: page.paragraphs
@@ -93,11 +84,14 @@ class _ReadingState extends State<Reading> {
                   ),
                 ),
               ),
-              Text('${index + 1}/${widget.pages.length}',
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500)),
+              Consumer<ServiceController>(builder: (context, provider, _) {
+                return Text(
+                    '${provider.currentPageNo + 1}/${context.read<ServiceController>().selectedChapter!.pages.length}',
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500));
+              }),
               GestureDetector(
                 onTap: () {
-                  _pageController.animateToPage(this.index + 1,
+                  _pageController.animateToPage(index + 1,
                       duration: const Duration(milliseconds: 500), curve: curve);
                 },
                 child: Container(

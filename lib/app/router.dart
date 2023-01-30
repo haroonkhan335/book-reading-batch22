@@ -14,13 +14,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => const Splash());
       case home:
         final args = settings.arguments as HomeArgs;
-        return MaterialPageRoute(builder: (context) => Home(args: args));
+        return MaterialPageRoute(builder: (context) => const Home());
       case bookChapters:
-        final args = settings.arguments as BookChaptersArgs;
-        return MaterialPageRoute(
-            builder: (context) => BookChapters(
-                  args: args,
-                ));
+        return MaterialPageRoute(builder: (context) => BookChapters());
     }
   }
 }
